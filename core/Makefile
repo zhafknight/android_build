@@ -4101,17 +4101,6 @@ endif
   ifeq ($(TARGET_BUILD_PDK),true)
     build_ota_package := false
   endif
-  ifneq ($(PRODUCT_BUILD_GENERIC_OTA_PACKAGE),true)
-    ifneq ($(filter generic%,$(TARGET_DEVICE)),)
-      build_ota_package := false
-    endif
-    ifeq ($(TARGET_NO_KERNEL),true)
-      build_ota_package := false
-    endif
-    ifeq ($(recovery_fstab),)
-      build_ota_package := false
-    endif
-  endif # PRODUCT_BUILD_GENERIC_OTA_PACKAGE
 
   # Set build_otatools_package, and allow opt-out below.
   build_otatools_package := true
