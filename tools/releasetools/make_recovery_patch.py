@@ -51,12 +51,16 @@ def main(argv):
       "board_uses_vendorimage") == "true"
   board_builds_vendorimage =  OPTIONS.info_dict.get(
       "board_builds_vendorimage") == "true"
+  board_no_recovery_patch =  OPTIONS.info_dict.get(
+      "board_no_recovery_patch") == "true"
+
   target_files_dir = None
 
-  if board_builds_vendorimage:
-    target_files_dir = "VENDOR"
-  elif not board_uses_vendorimage:
-    target_files_dir = "SYSTEM/vendor"
+  if not board_no_recovery_patch:
+    if board_builds_vendorimage:
+      target_files_dir = "VENDOR"
+    elif not board_uses_vendorimage:
+      target_files_dir = "SYSTEM/vendor"
 
   def output_sink(fn, data):
     if target_files_dir is None:
