@@ -694,12 +694,15 @@ def _WriteRecoveryImageToBoot(script, output_zip):
 def HasRecoveryPatch(target_files_zip, info_dict):
   board_uses_vendorimage = info_dict.get("board_uses_vendorimage") == "true"
   board_builds_vendorimage = info_dict.get("board_builds_vendorimage") == "true"
+  board_no_recovery_patch = info_dict.get("board_no_recovery_patch") == "true"
+
   target_files_dir = None
 
-  if board_builds_vendorimage:
-    target_files_dir = "VENDOR"
-  elif not board_uses_vendorimage:
-    target_files_dir = "SYSTEM/vendor"
+  if not board_no_recovery_patch:
+    if board_builds_vendorimage:
+      target_files_dir = "VENDOR"
+    elif not board_uses_vendorimage:
+      target_files_dir = "SYSTEM/vendor"
 
   if target_files_dir is None:
     return True
